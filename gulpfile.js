@@ -20,7 +20,7 @@ const stylesExtension = 'scss';
 const sourceFileExtension = 'ts';
 const staticFiles = ['assets', 'fonts', 'lang', 'packs', 'templates', 'module.json'];
 const getDownloadURL = (version) =>
-  `https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/download/v${version}/module.zip`;
+  `https://github.com/jjtParadox/fvtt-sw5e-character-actions/releases/download/v${version}/module.zip`;
 
 /********************/
 /*      BUILD       */

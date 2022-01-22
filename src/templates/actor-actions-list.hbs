@@ -3,10 +3,10 @@
 <li class="items-header flexrow">
   <h3 class="item-name flexrow">{{label}}</h3>
 
-  <div class="item-detail action-range">{{localize "DND5E.Range"}}</div>
+  <div class="item-detail action-range">{{localize "SW5E.Range"}}</div>
 
   <div class="item-detail to-hit-cell">{{localize "CAL5E.HitDC"}}</div>
-  <div class="item-detail damage-cell">{{localize "DND5E.Damage"}}</div>
+  <div class="item-detail damage-cell">{{localize "SW5E.Damage"}}</div>
   {{#if @root/isOwner}}
   <div class="item-controls">
   </div>
@@ -17,15 +17,15 @@
 
   <li class="item context-enabled flexrow" data-item-id="{{item.id}}">
     <div class="item-name flexrow rollable">
-      <div class="item-image" style="background-image: url({{item.img}})">{{{ @root/rollIcon }}}</div>
+      <div class="item-image" tabindex="0" role="button" aria-label="{{{item.name}}}" style="background-image: url({{item.img}})">{{{ @root/rollIcon }}}</div>
       <h4>{{item.name}}</h4>
 
       {{#if (or item.data.data.recharge.value item.hasLimitedUses (eq item.data.data.activation.type "legendary"))}}
-      <div class="item-detail item-uses" title="{{localize 'DND5E.Uses'}}">
+      <div class="item-detail item-uses" title="{{localize 'SW5E.Uses'}}">
 
         {{#if (and item.data.data.recharge.charged item.data.data.recharge.value)}}
 
-        {{localize "DND5E.Charged"}}
+        {{localize "SW5E.Charged"}}
 
         {{else if item.data.data.recharge.value}}
 
@@ -34,7 +34,7 @@
         {{else if item.hasLimitedUses}}
 
         {{item.data.data.uses.value}} / {{item.data.data.uses.max}}
-        <small>{{localize "DND5E.Uses"}}</small>
+        <small>{{localize "SW5E.Uses"}}</small>
 
         {{/if}}
 
@@ -59,7 +59,7 @@
     <div class="item-detail to-hit-cell">
       {{#if (or labels.save labels.toHit)}}
       {{#unless (or (eq labels.save "") (eq labels.save undefined))}}
-      <span title="{{labels.save}}">{{localize DND5E.AbbreviationDC}} {{data.data.save.dc}}</span>
+      <span title="{{labels.save}}">{{localize SW5E.AbbreviationDC}} {{data.data.save.dc}}</span>
       <small>{{lookup @root/abilities data.data.save.ability}}</small>
       {{else}}
       <span title="{{labels.toHit}}">{{labels.toHit}}</span>
@@ -84,8 +84,10 @@
 {{/unless}}
 {{/inline}}
 
-<ol class="character-actions-dnd5e items-list inventory-list">
-  {{#each actionData as |data key| }}
-  {{> action-sublist items=data label=(lookup @root/activationTypes key) }}
-  {{/each}}
-</ol>
+<section class="panel">
+  <ol class="character-actions-sw5e items-list inventory-list">
+    {{#each actionData as |data key| }}
+    {{> action-sublist items=data label=(lookup @root/activationTypes key) }}
+    {{/each}}
+  </ol>
+</section>

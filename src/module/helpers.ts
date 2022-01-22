@@ -9,7 +9,8 @@ export function log(force: boolean, ...args) {
   }
 }
 
-export function getActivationType(activationType?: DND5e.AbilityActivationType) {
+// @ts-ignore
+export function getActivationType(activationType?: SW5E.AbilityActivationType) {
   switch (activationType) {
     case 'action':
     case 'bonus':
@@ -70,40 +71,52 @@ export function isItemInActionList(item: Item5e) {
         isActiveItem(item.data.data.activation?.type)
       );
     }
-    case 'spell': {
-      const limitToCantrips = getGame().settings.get(MODULE_ID, MySettings.limitActionsToCantrips);
+    // @ts-ignore
+    case 'power': {
+      const limitToAtWills = getGame().settings.get(MODULE_ID, MySettings.limitActionsToAtWills);
 
-      // only exclude spells which need to be prepared but aren't
+      // only exclude powers which need to be prepared but aren't
+      // @ts-ignore
       const notPrepared = item.data.data.preparation?.mode === 'prepared' && !item.data.data.preparation?.prepared;
 
-      const isCantrip = item.data.data.level === 0;
+      // @ts-ignore
+      const isAtWill = item.data.data.level === 0;
 
-      if (!isCantrip && (limitToCantrips || notPrepared)) {
+      if (!isAtWill && (limitToAtWills || notPrepared)) {
         return false;
       }
 
+      // @ts-ignore
       const isReaction = item.data.data.activation?.type === 'reaction';
+      // @ts-ignore
       const isBonusAction = item.data.data.activation?.type === 'bonus';
 
-      //ASSUMPTION: If the spell causes damage, it will have damageParts
+      //ASSUMPTION: If the power causes damage, it will have damageParts
+      // @ts-ignore
       const isDamageDealer = item.data.data.damage?.parts?.length > 0;
 
       let shouldInclude = isReaction || isBonusAction || isDamageDealer;
 
-      if (getGame().settings.get(MODULE_ID, MySettings.includeOneMinuteSpells)) {
+      if (getGame().settings.get(MODULE_ID, MySettings.includeOneMinutePowers)) {
+        // @ts-ignore
         const isOneMinuter = item.data.data?.duration?.units === 'minute' && item.data.data?.duration?.value === 1;
+        // @ts-ignore
         const isOneRounder = item.data.data?.duration?.units === 'round' && item.data.data?.duration?.value === 1;
 
         shouldInclude = shouldInclude || isOneMinuter || isOneRounder;
       }
 
-      if (getGame().settings.get(MODULE_ID, MySettings.includeSpellsWithEffects)) {
+      if (getGame().settings.get(MODULE_ID, MySettings.includePowersWithEffects)) {
         const hasEffects = !!item.effects.size;
         shouldInclude = shouldInclude || hasEffects;
       }
 
       return shouldInclude;
     }
+    // @ts-ignore
+    case 'classfeature':
+    // @ts-ignore
+    case 'deploymentfeature':
     case 'feat': {
       return !!item.data.data.activation?.type;
     }

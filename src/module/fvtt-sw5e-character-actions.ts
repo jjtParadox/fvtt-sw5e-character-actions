@@ -17,7 +17,7 @@ Handlebars.registerHelper(`${MODULE_ABBREV}-isEmpty`, (input: Object | Array<any
 Handlebars.registerHelper(`${MODULE_ABBREV}-isItemInActionList`, isItemInActionList);
 
 /**
- * Add the Actions Tab to Sheet HTML. Returns early if the character-actions-dnd5e element already exists
+ * Add the Actions Tab to Sheet HTML. Returns early if the character-actions-sw5e element already exists
  */
 async function addActionsTab(
   app: ActorSheet5e,
@@ -29,7 +29,7 @@ async function addActionsTab(
     return;
   }
 
-  const existingActionsList = $(html).find('.character-actions-dnd5e');
+  const existingActionsList = $(html).find('.character-actions-sw5e');
 
   // check if what is rendering this is an Application and if our Actions List exists within it already
   if ((!!app.appId && !!existingActionsList.length) || app.options.blockActionsTab) {
@@ -38,14 +38,14 @@ async function addActionsTab(
 
   // Update the nav menu
   const actionsTabButton = $(
-    '<a class="item" data-tab="actions">' + getGame().i18n.localize(`DND5E.ActionPl`) + '</a>',
+    '<button class="item" data-tab="actions">' + getGame().i18n.localize(`SW5E.ActionPl`) + '</button>',
   );
-  const tabs = html.find('.tabs[data-group="primary"]');
+  const tabs = html.find('.root-tabs[data-group="primary"]');
   tabs.prepend(actionsTabButton);
 
   // Create the tab
   const sheetBody = html.find('.sheet-body');
-  const actionsTab = $(`<div class="tab actions flexcol" data-group="primary" data-tab="actions"></div>`);
+  const actionsTab = $(`<section class="tab actions flexcol" data-group="primary" data-tab="actions"></section>`);
   sheetBody.prepend(actionsTab);
 
   // add the list to the tab
@@ -81,12 +81,15 @@ async function renderActionsList(
 
   return renderTemplate(`modules/${MODULE_ID}/templates/actor-actions-list.hbs`, {
     actionData,
-    abilities: getGame().dnd5e.config.abilityAbbreviations,
+    // @ts-ignore
+    abilities: getGame().sw5e.config.abilityAbbreviations,
     activationTypes: {
-      ...getGame().dnd5e.config.abilityActivationTypes,
-      other: getGame().i18n.localize(`DND5E.ActionOther`),
+      // @ts-ignore
+      ...getGame().sw5e.config.abilityActivationTypes,
+      other: getGame().i18n.localize(`SW5E.ActionOther`),
     },
-    damageTypes: getGame().dnd5e.config.damageTypes,
+    // @ts-ignore
+    damageTypes: getGame().sw5e.config.damageTypes,
     rollIcon: options?.rollIcon,
     isOwner: actorData.isOwner,
   });
@@ -161,7 +164,7 @@ Hooks.on('renderActorSheet5e', async (app, html, data) => {
     data,
   });
 
-  const actionsList = $(html).find('.character-actions-dnd5e');
+  const actionsList = $(html).find('.character-actions-sw5e');
 
   log(false, 'actionsListExists', { actionsListExists: actionsList.length });
 

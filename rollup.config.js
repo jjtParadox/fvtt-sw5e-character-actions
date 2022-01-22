@@ -2,7 +2,7 @@ const typescript = require('rollup-plugin-typescript2');
 const { nodeResolve } = require('@rollup/plugin-node-resolve');
 
 module.exports = {
-  input: 'src/module/foundryvtt-dnd5eCharacterActions.ts',
+  input: 'src/module/fvtt-sw5e-character-actions.ts',
   output: {
     dir: 'dist/module',
     format: 'es',

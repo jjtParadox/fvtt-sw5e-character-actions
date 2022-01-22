@@ -1,7 +1,7 @@
 @import './variables.scss';
 
 // ensure our styles take precedence over 5e default
-.dnd5e.sheet.actor .character-actions-dnd5e {
+.sw5e.sheet.actor .character-actions-sw5e {
   // use the active whetstone global theme if there is one
   --accent-text: var(--Whetstone-fg-secondary, #4b4a44);
   --color: var(--Whetstone-fg-primary, #191813);
@@ -22,6 +22,17 @@
   }
 
   @import './actions.scss';
+}
+
+.sw5e.sheet {
+  .swalt-sheet {
+    nav.sheet-navigation {
+      display: flex;
+      .item {
+        flex: content;
+      }
+    }
+  }
 }
 
 /* Override this if in your sheet styles if you want the control label to show up. */
@@ -78,7 +89,7 @@
     }
   }
 
-  .character-actions-dnd5e {
+  .character-actions-sw5e {
     .items-header {
       .item-controls {
         display: none;
