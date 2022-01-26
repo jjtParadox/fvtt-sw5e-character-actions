@@ -46,13 +46,3 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: './dist/module.json,./dist/module.zip'
           tag_name: ${{ steps.get-version.outputs.version }}
-
-      # Publish this new version to the Foundry VTT Module Listing
-      - name: FoundryVTT AutoPublish
-        uses: Varriount/fvtt-autopublish@v1.0.2a
-        with:
-          username: ${{ secrets.FOUNDRY_ADMIN_USER }}
-          password: ${{ secrets.FOUNDRY_ADMIN_PW }}
-          module-id: 879
-          manifest-url: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.json
-          manifest-file: src/module.json
