@@ -16,6 +16,10 @@ Handlebars.registerHelper(`${MODULE_ABBREV}-isEmpty`, (input: Object | Array<any
 
 Handlebars.registerHelper(`${MODULE_ABBREV}-isItemInActionList`, isItemInActionList);
 
+Handlebars.registerHelper(`${MODULE_ABBREV}-isLocalized`, (input: string) => {
+  return !input.startsWith('SW5E.');
+});
+
 /**
  * Add the Actions Tab to Sheet HTML. Returns early if the character-actions-sw5e element already exists
  */

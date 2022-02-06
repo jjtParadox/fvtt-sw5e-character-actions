@@ -5,7 +5,7 @@
   "systems": [
     "sw5e"
   ],
-  "version": "4.3.0.R1-A1",
+  "version": "4.4.0.R1-A2",
   "author": "Andrew Krigline (akrigline), jjtParadox",
   "authors": [
     {
@@ -38,7 +38,7 @@
   "compatibleCoreVersion": "0.8.9",
   "bugs": "https://github.com/jjtParadox/fvtt-sw5e-character-actions/issues",
   "changelog": "https://github.com/jjtParadox/fvtt-sw5e-character-actions/releases",
-  "download": "https://github.com/jjtParadox/fvtt-sw5e-character-actions/releases/download/v4.3.0.R1-A1/module.zip",
+  "download": "https://github.com/jjtParadox/fvtt-sw5e-character-actions/releases/download/v4.4.0.R1-A2/module.zip",
   "manifest": "https://github.com/jjtParadox/fvtt-sw5e-character-actions/releases/latest/download/module.json",
   "readme": "https://raw.githubusercontent.com/jjtParadox/fvtt-sw5e-character-actions/main/README.md",
   "url": "https://github.com/jjtParadox/fvtt-sw5e-character-actions",
