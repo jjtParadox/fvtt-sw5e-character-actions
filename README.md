@@ -1,6 +1,6 @@
 # Character Actions sw5e
 
-![Foundry Core Compatible Version](https://img.shields.io/badge/dynamic/json.svg?url=https%3A%2F%2Fraw.githubusercontent.com%2FjjtParadox%2Ffvtt-sw5e-character-actions%2Fmain%2Fsrc%2Fmodule.json&label=Foundry%20Version&query=$.compatibleCoreVersion&colorB=orange)
+![Foundry Core Compatible Version](https://img.shields.io/badge/dynamic/json.svg?url=https%3A%2F%2Fraw.githubusercontent.com%2FjjtParadox%2Ffvtt-sw5e-character-actions%2Fmain%2Fsrc%2Fmodule.json&label=Foundry%20Version&query=$.compatibility.minimum&colorB=orange)
 ![Manifest+ Version](https://img.shields.io/badge/dynamic/json.svg?url=https%3A%2F%2Fraw.githubusercontent.com%2FjjtParadox%2Ffvtt-sw5e-character-actions%2Fmain%2Fsrc%2Fmodule.json&label=Manifest%2B%20Version&query=$.manifestPlusVersion&colorB=blue)
 
 This is a modification of [ElfFriend's Character Actions 5e](https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions) to work with the SW5E system.
