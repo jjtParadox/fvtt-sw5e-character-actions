@@ -14,7 +14,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '14.x'
+          node-version: '16.x'
 
       - name: Install dependencies
         run: npm ci
@@ -32,7 +32,7 @@ jobs:
       - name: Get Version
         shell: bash
         id: get-version
-        run: echo "::set-output name=version::$(node ./.github/workflows/get-version.js)"
+        run: echo "version=$(node ./.github/workflows/get-version.js)" >> $GITHUB_OUTPUT
 
       # Create a release for this specific version
       - name: Create Release
@@ -45,4 +45,4 @@ jobs:
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: './dist/module.json,./dist/module.zip'
-          tag_name: ${{ steps.get-version.outputs.version }}
+          tag: ${{ steps.get-version.outputs.version }}
