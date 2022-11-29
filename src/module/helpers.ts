@@ -49,26 +49,25 @@ export function isItemInActionList(item: Item5e) {
 
   // check the old flags
   //@ts-ignore
-  const isFavourite = item.data.flags?.favtab?.isFavourite; // favourite items tab
+  const isFavourite = item.flags?.favtab?.isFavourite; // favourite items tab
   //@ts-ignore
-  const isFavorite = item.data.flags?.favtab?.isFavorite; // tidy 5e sheet
+  const isFavorite = item.flags?.favtab?.isFavorite; // tidy 5e sheet
 
   if (isFavourite || isFavorite) {
     return true;
   }
 
   // perform normal filtering logic
-  switch (item.data.type) {
+  switch (item.type) {
     case 'weapon': {
-      return item.data.data.equipped;
+      return item.system.equipped;
     }
     case 'equipment': {
-      return item.data.data.equipped && isActiveItem(item.data.data.activation?.type);
+      return item.system.equipped && isActiveItem(item.system.activation?.type);
     }
     case 'consumable': {
       return (
-        !!getGame().settings.get(MODULE_ID, MySettings.includeConsumables) &&
-        isActiveItem(item.data.data.activation?.type)
+        !!getGame().settings.get(MODULE_ID, MySettings.includeConsumables) && isActiveItem(item.system.activation?.type)
       );
     }
     // @ts-ignore
@@ -77,31 +76,31 @@ export function isItemInActionList(item: Item5e) {
 
       // only exclude powers which need to be prepared but aren't
       // @ts-ignore
-      const notPrepared = item.data.data.preparation?.mode === 'prepared' && !item.data.data.preparation?.prepared;
+      const notPrepared = item.system.preparation?.mode === 'prepared' && !item.system.preparation?.prepared;
 
       // @ts-ignore
-      const isAtWill = item.data.data.level === 0;
+      const isAtWill = item.system.level === 0;
 
       if (!isAtWill && (limitToAtWills || notPrepared)) {
         return false;
       }
 
       // @ts-ignore
-      const isReaction = item.data.data.activation?.type === 'reaction';
+      const isReaction = item.system.activation?.type === 'reaction';
       // @ts-ignore
-      const isBonusAction = item.data.data.activation?.type === 'bonus';
+      const isBonusAction = item.system.activation?.type === 'bonus';
 
       //ASSUMPTION: If the power causes damage, it will have damageParts
       // @ts-ignore
-      const isDamageDealer = item.data.data.damage?.parts?.length > 0;
+      const isDamageDealer = item.system.damage?.parts?.length > 0;
 
       let shouldInclude = isReaction || isBonusAction || isDamageDealer;
 
       if (getGame().settings.get(MODULE_ID, MySettings.includeOneMinutePowers)) {
         // @ts-ignore
-        const isOneMinuter = item.data.data?.duration?.units === 'minute' && item.data.data?.duration?.value === 1;
+        const isOneMinuter = item.system?.duration?.units === 'minute' && item.system?.duration?.value === 1;
         // @ts-ignore
-        const isOneRounder = item.data.data?.duration?.units === 'round' && item.data.data?.duration?.value === 1;
+        const isOneRounder = item.system?.duration?.units === 'round' && item.system?.duration?.value === 1;
 
         shouldInclude = shouldInclude || isOneMinuter || isOneRounder;
       }
@@ -118,7 +117,7 @@ export function isItemInActionList(item: Item5e) {
     // @ts-ignore
     case 'deploymentfeature':
     case 'feat': {
-      return !!item.data.data.activation?.type;
+      return !!item.system.activation?.type;
     }
     default: {
       return false;

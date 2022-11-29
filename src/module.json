@@ -2,10 +2,7 @@
   "name": "character-actions-list-sw5e",
   "title": "Character Actions List sw5e",
   "description": "Provides an Actions List Component",
-  "systems": [
-    "sw5e"
-  ],
-  "version": "4.4.0.R1-A2",
+  "version": "6.0.1-2.0.0",
   "author": "Andrew Krigline (akrigline), jjtParadox",
   "authors": [
     {
@@ -33,16 +30,27 @@
       "path": "lang/en.json"
     }
   ],
-  "minimumCoreVersion": "0.8.5",
-  "minimumSystemVersion": "1.3.5.R1-A6",
-  "compatibleCoreVersion": "0.8.9",
+  "relationships": {
+    "systems": [
+      {
+        "id": "sw5e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "2.0.2.2.2.3"
+        }
+      }
+    ]
+  },
+  "compatibility": {
+    "minimum": 10
+  },
   "bugs": "https://github.com/jjtParadox/fvtt-sw5e-character-actions/issues",
   "changelog": "https://github.com/jjtParadox/fvtt-sw5e-character-actions/releases",
-  "download": "https://github.com/jjtParadox/fvtt-sw5e-character-actions/releases/download/v4.4.0.R1-A2/module.zip",
+  "download": "https://github.com/jjtParadox/fvtt-sw5e-character-actions/releases/download/v6.0.1-2.0.0/module.zip",
   "manifest": "https://github.com/jjtParadox/fvtt-sw5e-character-actions/releases/latest/download/module.json",
   "readme": "https://raw.githubusercontent.com/jjtParadox/fvtt-sw5e-character-actions/main/README.md",
   "url": "https://github.com/jjtParadox/fvtt-sw5e-character-actions",
-  "manifestPlusVersion": "1.0.0",
+  "manifestPlusVersion": "1.1.0",
   "flags": {
     "allowBugReporter": true
   }

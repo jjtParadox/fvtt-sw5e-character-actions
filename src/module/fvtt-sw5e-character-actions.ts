@@ -62,7 +62,7 @@ async function addActionsTab(
   // owner only listeners
   if (data.owner) {
     // @ts-ignore
-    actionsTabHtml.find('.item .item-image').click((event) => app._onItemRoll(event));
+    actionsTabHtml.find('.item .item-image').click((event) => app._onItemUse(event));
     // @ts-ignore
     actionsTabHtml.find('.item .item-recharge').click((event) => app._onItemRecharge(event));
   } else {
@@ -70,6 +70,26 @@ async function addActionsTab(
   }
 }
 
+const damageTypeIconMap = {
+  acid: '<i class="fas fa-vial"></i>',
+  cold: '<i class="fas fa-snowflake"></i>',
+  energy: '<i class="fas fa-radiation"></i>',
+  fire: '<i class="fas fa-fire-alt"></i>',
+  force: '<i class="fas fa-hand-holding-magic"></i>',
+  ion: '<i class="fas fa-atom-simple"></i>',
+  kinetic: '<i class="fas fa-hammer-war"></i>',
+  lightning: '<i class="fas fa-bolt"></i>',
+  necrotic: '<i class="fas fa-skull"></i>',
+  poison: '<i class="fas fa-biohazard"></i>',
+  psychic: '<i class="fas fa-brain"></i>',
+  sonic: '<i class="fas fa-waveform"></i>',
+  healing: '<i class="fas fa-heart"></i>',
+  temphp: '<i class="fas fa-shield-alt"></i>',
+};
+
+/**
+ * Renders the html of the actions list for the provided actor data
+ */
 async function renderActionsList(
   actorData: Actor5e,
   options?: {
@@ -93,7 +113,8 @@ async function renderActionsList(
       other: getGame().i18n.localize(`SW5E.ActionOther`),
     },
     // @ts-ignore
-    damageTypes: getGame().sw5e.config.damageTypes,
+    damageTypes: { ...getGame().sw5e.config.damageTypes, ...getGame().sw5e.config.healingTypes },
+    damageTypeIconMap,
     rollIcon: options?.rollIcon,
     isOwner: actorData.isOwner,
   });

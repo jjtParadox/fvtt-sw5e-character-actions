@@ -16,22 +16,42 @@ export function getActorActionsData(actor: Actor5e) {
   const filteredItems = actor.items
     .filter(isItemInActionList)
     .sort((a, b) => {
-      if (a.data.type !== b.data.type) {
-        return ItemTypeSortValues[a.data.type] - ItemTypeSortValues[b.data.type];
+      if (a.type !== b.type) {
+        return ItemTypeSortValues[a.type] - ItemTypeSortValues[b.type];
       }
 
       //@ts-ignore
-      if (a.data.type === 'power' && b.data.type === 'power') {
+      if (a.type === 'power' && b.type === 'power') {
         //@ts-ignore
-        return a.data.data.level - b.data.data.level;
+        return a.system.level - b.system.level;
       }
 
-      return (a.data.sort || 0) - (b.data.sort || 0);
+      return (a.sort || 0) - (b.sort || 0);
     })
     .map((item) => {
       if (item.labels) {
         //@ts-expect-error
         item.labels.type = getGame().i18n.localize(`SW5E.ItemType${item.type.titleCase()}`);
+      }
+
+      // removes any in-formula flavor text from the formula in the label
+      //@ts-expect-error
+      if (item.labels?.derivedDamage?.length) {
+        //@ts-expect-error
+        item.labels.derivedDamage = item.labels.derivedDamage.map(({ formula, ...rest }) => ({
+          formula: formula?.replace(/\[.+?\]/, '') || '0',
+          ...rest,
+        }));
+      }
+
+      // removes any in-formula flavor text from the formula in the label
+      //@ts-expect-error
+      if (item.labels?.derivedDamage?.length) {
+        //@ts-expect-error
+        item.labels.derivedDamage = item.labels.derivedDamage.map(({ formula, ...rest }) => ({
+          formula: formula?.replace(/\[.+?\]/, '') || '0',
+          ...rest,
+        }));
       }
 
       return item;
@@ -46,12 +66,12 @@ export function getActorActionsData(actor: Actor5e) {
         log(false, 'digesting item', {
           item,
         });
-        if (['backpack', 'tool'].includes(item.data.type)) {
+        if (['backpack', 'tool'].includes(item.type)) {
           return acc;
         }
 
         //@ts-ignore
-        const activationType = getActivationType(item.data.data.activation?.type);
+        const activationType = getActivationType(item.system.activation?.type);
 
         acc[activationType].add(item);
 
